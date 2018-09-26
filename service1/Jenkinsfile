@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Development Branch'){
               when {
-                branch: 'development', value: 'yes'
+                branch 'development', value 'yes'
             }
                steps{
                 script{
@@ -16,7 +16,7 @@ pipeline {
     }   
         stage('Master Branch'){
              when {
-                branch: 'master', value: 'yes'
+                branch 'master', value 'yes'
             }
             steps{
                 script{
