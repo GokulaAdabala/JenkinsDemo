@@ -12,7 +12,7 @@ pipeline {
             }
             steps{
                 script{
-                    docker.build('jenkins/demo')
+                    docker.build('jenkins/demo','/var/www/workspace/JenkinsDemo/service1/')
                 }
             }
         }
@@ -22,7 +22,7 @@ pipeline {
             }
             steps{
                 script{
-                    docker.build('jenkins/demo')
+                    docker.build('jenkins/demo','/var/www/workspace/JenkinsDemo/service1/')
                 }
             }
         }        
@@ -30,7 +30,7 @@ pipeline {
         stage('Docker push'){
             steps{
                 script{
-                    docker.withRegistry('https://003656774475.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:karthik-aws') {
+                    docker.withRegistry('https://943112551667.dkr.ecr.ap-south-1.amazonaws.com', 'ecr:ap-south-1:amazon-dev') {
                         docker.image('jenkins/demo').push("$currentBuild.number")
                     }
                 }
