@@ -1,34 +1,29 @@
 pipeline {
     agent any
-
      environment {
         CI = 'true'
     }
     stages {
-
         stage('Development Branch'){
-              
-               branch: 'development' concurrency: 1
-              {
+              when {
+                branch name: 'development', value: 'yes'
+            }
                steps{
                 script{
                     docker.build('jenkins/demo','/var/www/workspace/JenkinsDemo/service1/')
                 }
             }
-        }
     }   
         stage('Master Branch'){
-        
-            branch name: 'master', concurrency: 1
-            {
+             when {
+                branch name: 'master', value: 'yes'
+            }
             steps{
                 script{
                     docker.build('jenkins/demo','/var/www/workspace/JenkinsDemo/service1/')
                    }
                }
-            }    
         }        
-
         stage('Docker push'){
             steps{
                 script{
