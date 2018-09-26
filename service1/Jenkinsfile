@@ -1,15 +1,31 @@
 pipeline {
     agent any
 
+     environment {
+        CI = 'true'
+    }
     stages {
 
-        stage('Docker build'){
+        stage('Development Branch'){
+            when {
+               branch 'development' 
+            }
             steps{
                 script{
                     docker.build('jenkins/demo')
                 }
             }
         }
+        stage('Master Branch'){
+            when {
+               branch 'master' 
+            }
+            steps{
+                script{
+                    docker.build('jenkins/demo')
+                }
+            }
+        }        
 
         stage('Docker push'){
             steps{
