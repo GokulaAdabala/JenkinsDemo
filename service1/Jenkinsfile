@@ -7,24 +7,26 @@ pipeline {
     stages {
 
         stage('Development Branch'){
-            when {
-               branch: "development" value: "yes"
-            }
-            steps{
+              
+               branch: 'development' concurrency: 1
+              {
+               steps{
                 script{
                     docker.build('jenkins/demo','/var/www/workspace/JenkinsDemo/service1/')
                 }
             }
         }
+    }   
         stage('Master Branch'){
-            when {
-               branch: "master" value: "yes"
-            }
+        
+            branch name: 'master', concurrency: 1
+            {
             steps{
                 script{
                     docker.build('jenkins/demo','/var/www/workspace/JenkinsDemo/service1/')
-                }
-            }
+                   }
+               }
+            }    
         }        
 
         stage('Docker push'){
