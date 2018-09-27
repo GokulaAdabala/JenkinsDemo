@@ -1,12 +1,17 @@
 pipeline {
     agent any
-     environment {
-        CI = 'true'
+     parameters {
+         string(
+           name: 'Action'
+           default: 'master'
+           description: 'branch'
+         )
+     }
     }
     stages {
         stage('Development Branch'){
               when {
-                branch 'development', value 'yes'
+                expression{params.Action==='development'}
             }
                steps{
                 script{
@@ -16,7 +21,7 @@ pipeline {
     }   
         stage('Master Branch'){
              when {
-                branch 'master', value 'yes'
+               expression{params.Action=='master'}         
             }
             steps{
                 script{
